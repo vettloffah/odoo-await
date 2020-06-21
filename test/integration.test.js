@@ -1,0 +1,50 @@
+const OdooClient = require('../lib/index');
+const should = require('should');
+
+describe('OddoClient', () => {
+
+  const odoo = new OdooClient({
+    baseUrl: process.env.ODOO_BASE_URL || 'http://localhost',
+    port: process.env.ODOO_PORT || 8069,
+    db: process.env.ODOO_DB || 'odoo_db',
+    username: process.env.ODOO_USER || 'admin',
+    password: process.env.ODOO_PW || 'admin'
+  });
+
+  describe('connect()', () => {
+    it('Authenticates and returns a UID number', async() => {
+      const uid = await odoo.connect();
+      uid.should.be.a.Number();
+    })
+  })
+
+  let recordId;
+  describe('create()', () => {
+    it('Creates a record and returns a record ID', async() => {
+      recordId = await odoo.create('res.partner', {name: 'Kool Keith', email: 'lostinspace@example.com'});
+      recordId.should.be.a.Number();
+    })
+  })
+
+  describe('read()', () => {
+    it('Returns a record object', async() => {
+      const recordObject = await odoo.read('res.partner', recordId);
+      recordObject.should.have.property('id');
+    })
+  })
+
+  describe('update()', () => {
+    it('Updates record and returns true', async() => {
+      const updated = await odoo.update('res.partner', recordId, {email: 'seeingrobots@example.com'});
+      updated.should.be.exactly(true);
+    })
+  })
+
+  describe('delete()', () => {
+    it('Deletes record and returns true', async() => {
+      const deleted = await odoo.delete('res.partner', recordId);
+      deleted.should.be.exactly(true);
+    })
+  })
+
+})
