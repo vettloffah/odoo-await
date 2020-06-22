@@ -1,7 +1,6 @@
 # Odoo Await
 
-Node.js client library for [Odoo](https://www.odoo.com/) ERP using modern JS with async-await.
-Utilizes the XML-RPC API methods.
+Simple Odoo API client using async await.
 
 # Contributing
 Happy to merge all useful features and bug fixes. Just push a feature branch and initiate a pull request.
@@ -103,7 +102,7 @@ try {
 }
 ```
 ## Testing
-The default test will run through basic CRUD functions, creating a `res.partner` record, updating it, reading it, and deleting it.
+The default test will run through basic CRUD functions, creating a `res.partner` record, updating it, reading it, and deleting it. Uses Mocha and Should as dependencies.
 
 If you are using default db name `"odoo_db"`, username `"admin"`, password `"admin"`, and port `8069` on `"http://localhost"`:
 ```shell script
