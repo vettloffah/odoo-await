@@ -1,10 +1,10 @@
-# odoo-client
+# odoo-await
 
 Node.js client library for [Odoo](https://www.odoo.com/) ERP using modern JS with async-await.
 Utilizes the XML-RPC API methods.
 
 # Contributing
-Happy to merge all useful features and bug fixes. Just push a feature branch and a initiate a pull request.
+Happy to merge all useful features and bug fixes. Just push a feature branch and initiate a pull request.
 
 Things that aren't currently included that should be:
 
@@ -17,10 +17,27 @@ Node 11.16+
 ## Installation
 
 ```sh
-$ npm install odoo-client
+$ npm install odoo-await
 ```
 
-# Testing
+## Usage
+
+```js
+const OdooAwait = require('odoo-await');
+
+const odoo = new OdooAwait({
+    url: 'http://localhost',
+    port: 8069,
+    db: 'odoo_db',
+    username: 'admin',
+    password: 'admin'
+});
+
+const partnerId = await odoo.create('res.partner', {name: 'Kool Keith', email: 'lostinspace@example.com'});
+console.log(`Partner created with ID ${partnerId}`);
+```
+
+## Testing
 The default test will run through basic CRUD functions, creating a `res.partner` record, updating it, reading it, and deleting it.
 
 If you are using default db name `"odoo_db"`, username `"admin"`, password `"admin"`, and port `8069` on `"http://localhost"`:
@@ -46,65 +63,30 @@ This method is wrapped inside the below methods. If below methods don't do what 
 ## Other Methods
 ### odoo.searchRead(model, domain, fields, opts)
 Searches for matching records and returns record data.
+```js
+const records =  searchRead(`res.partner`, {country_id: 'United States'}, ['name', 'city'],  {limit: 5});
+console.log(records); // [ {id: 5, name: 'Kool Keith', city: 'Los Angeles' }, ... ]
+```
 ### odoo.getFields(model, attributes)
-Returns detailed list of fields for a model, filtered by attributes. i.e. if you only want to know which fields are required you could call:
+Returns detailed list of fields for a model, filtered by attributes. i.e. if you only want to know if fields are required you could call:
 ```js
 const fields = await odoo.getFields('res.partner', ['required']);
 console.log(fields);
 ```
-
-
-## Usage
+### odoo.createOrderLine(orderId, productId, qty, price, name)
 
 ```js
-const OdooClient = require('../OdooClient');
-```
-
-### Configuration
-
-```js
-const odoo = new OdooClient({
-    url: 'http://localhost',
-    port: 8069,
-    db: 'odoo_db',
-    username: 'admin',
-    password: 'admin'
-});
-```
-
-### Connect
-
-```js
-const uid = await odoo.connect //returns user ID of logged in user
-```
-### Calling methods
-
-```js
-const partnerId = await odoo.create('res.partner', {name: 'Kool Keith', email: 'lostinspace@example.com'});
-```
-
-### Create an order with a line item
-
-```js
-const orderId = await odoo.create('sale.order', {partner_id: partnerId});
+const orderId = await odoo.create('sale.order', {partner_id: 54});
 await odoo.createOrderLine(orderId, 47, 1, 45.55, 'Dehydrated space food capsule');
-
-```
-
-### Search for records and return requested field values
-
-```js
-const matchingRecords = await odoo.searchRead('res.partner', {email: 'lostinspace@example.com'}, ['name, street, phone']);
-console.log(matchingRecords);
 ```
 
 ### Complete Example
 This example creates a partner (customer), creates an order (quote) for the customer, and finally ads a line item to that order. You might use this if integrating with an ecomm platform.
 
 ```js
-const OdooClient = require('odoo-client');
+const OdooAwait = require('odoo-await');
 
-const odoo = new OdooClient({
+const odoo = new OdooAwait({
     url: 'http://localhost',
     port: 8069,
     db: 'odoo_db',

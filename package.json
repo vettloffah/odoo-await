@@ -1,5 +1,5 @@
 {
-  "name": "odoo-client",
+  "name": "odoo-await",
   "version": "1.0.0",
   "description": "README",
   "main": "index.js",
@@ -9,9 +9,13 @@
   "scripts": {
     "test": "mocha"
   },
+  "mocha": {
+    "slow": 500,
+    "timeout": 3000
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vettloffah/odoo-client.git"
+    "url": "git+https://github.com/vettloffah/odoo-await.git"
   },
   "keywords": [
     "odoo",
@@ -34,7 +38,7 @@
   },
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/vettloffah/odoo-client/issues"
+    "url": "https://github.com/vettloffah/odoo-await/issues"
   },
-  "homepage": "https://github.com/vettloffah/odoo-client#readme"
+  "homepage": "https://github.com/vettloffah/odoo-await#readme"
 }
