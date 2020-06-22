@@ -1,4 +1,4 @@
-# odoo-await
+# Odoo Await
 
 Node.js client library for [Odoo](https://www.odoo.com/) ERP using modern JS with async-await.
 Utilizes the XML-RPC API methods.
@@ -23,9 +23,9 @@ $ npm install odoo-await
 ## Usage
 
 ```js
-const OdooAwait = require('odoo-await');
+const Odoo = require('odoo-await');
 
-const odoo = new OdooAwait({
+const odoo = new Odoo({
     url: 'http://localhost',
     port: 8069,
     db: 'odoo_db',
@@ -36,19 +36,6 @@ const odoo = new OdooAwait({
 const partnerId = await odoo.create('res.partner', {name: 'Kool Keith', email: 'lostinspace@example.com'});
 console.log(`Partner created with ID ${partnerId}`);
 ```
-
-## Testing
-The default test will run through basic CRUD functions, creating a `res.partner` record, updating it, reading it, and deleting it.
-
-If you are using default db name `"odoo_db"`, username `"admin"`, password `"admin"`, and port `8069` on `"http://localhost"`:
-```shell script
-$ npm test 
-```
-If you aren't using the defaults, pass the variables in command line with environment variables:
-```shell script
-$ ODOO_DB=my_database ODOO_USER=myusername ODOO_PW=my_password ODOO_PORT=8080 ODOO_BASE_URL=https://myodoo.com npm test 
-```
-
 # Methods
 
 ### odoo.connect()
@@ -57,9 +44,21 @@ Must be called before other methods.
 This method is wrapped inside the below methods. If below methods don't do what you need, you can use this method. Docs: https://www.odoo.com/documentation/13.0/webservices/odoo.html
 ## CRUD
 ### odoo.create(model, params)
+Returns the ID of the created record.
+
+`const partnerId = await odoo.create('res.partner', {name: 'Kool Keith'})`
 ### odoo.read(model, recordId)
+Returns record data as an object.
+
+`const record = await odoo.read('res.partner', 54)`
 ### odoo.update(model, recordId, params)
+Returns true if successful
+
+`const updated = await odoo.update('res.partner', 54, {street: '334 Lving Astro Blvd.'})`
 ### odoo.delete(model, recordId)
+Returns true if successful.
+
+`const deleted = await odoo.delete('res.partner', 54);`
 ## Other Methods
 ### odoo.searchRead(model, domain, fields, opts)
 Searches for matching records and returns record data.
@@ -84,9 +83,9 @@ await odoo.createOrderLine(orderId, 47, 1, 45.55, 'Dehydrated space food capsule
 This example creates a partner (customer), creates an order (quote) for the customer, and finally ads a line item to that order. You might use this if integrating with an ecomm platform.
 
 ```js
-const OdooAwait = require('odoo-await');
+const Odoo = require('odoo-await');
 
-const odoo = new OdooAwait({
+const odoo = new Odoo({
     url: 'http://localhost',
     port: 8069,
     db: 'odoo_db',
@@ -102,6 +101,17 @@ try {
 } catch(e) {
   console.log(e);
 }
+```
+## Testing
+The default test will run through basic CRUD functions, creating a `res.partner` record, updating it, reading it, and deleting it.
+
+If you are using default db name `"odoo_db"`, username `"admin"`, password `"admin"`, and port `8069` on `"http://localhost"`:
+```shell script
+$ npm test 
+```
+If you aren't using the defaults, pass the variables in command line with environment variables:
+```shell script
+$ ODOO_DB=mydatabase ODOO_USER=myusername ODOO_PW=mypassword ODOO_PORT=8080 ODOO_BASE_URL=https://myodoo.com npm test 
 ```
 
 
