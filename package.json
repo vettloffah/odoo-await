@@ -1,7 +1,7 @@
 {
   "name": "odoo-await",
   "version": "1.0.0",
-  "description": "README",
+  "description": "Node.js client library for Odoo ERP using modern JS with async-await. Utilizes the XML-RPC API methods.",
   "main": "index.js",
   "directories": {
     "lib": "lib"
