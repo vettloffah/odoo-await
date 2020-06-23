@@ -3,7 +3,7 @@
 Simple Odoo API client using async await.
 
 # Contributing
-Happy to merge all useful features and bug fixes. Just push a feature branch and initiate a pull request.
+Happy to merge all useful features and bug fixes. Just start an 'issue' regarding the update.
 
 Things that aren't currently included that should be:
 
