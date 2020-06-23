@@ -45,24 +45,32 @@ This method is wrapped inside the below methods. If below methods don't do what 
 ### odoo.create(model, params)
 Returns the ID of the created record.
 
-`const partnerId = await odoo.create('res.partner', {name: 'Kool Keith'})`
+```js
+const partnerId = await odoo.create('res.partner', {name: 'Kool Keith'})
+```
 ### odoo.read(model, recordId)
 Returns record data as an object.
 
-`const record = await odoo.read('res.partner', 54)`
+```js
+const record = await odoo.read('res.partner', 54)
+```
 ### odoo.update(model, recordId, params)
 Returns true if successful
 
-`const updated = await odoo.update('res.partner', 54, {street: '334 Lving Astro Blvd.'})`
+```js
+const updated = await odoo.update('res.partner', 54, {street: '334 Lving Astro Blvd.'})
+```
 ### odoo.delete(model, recordId)
 Returns true if successful.
 
-`const deleted = await odoo.delete('res.partner', 54);`
+```js
+const deleted = await odoo.delete('res.partner', 54);
+```
 ## Other Methods
 ### odoo.searchRead(model, domain, fields, opts)
 Searches for matching records and returns record data.
 ```js
-const records =  searchRead(`res.partner`, {country_id: 'United States'}, ['name', 'city'],  {limit: 5});
+const records =  await searchRead(`res.partner`, {country_id: 'United States'}, ['name', 'city'],  {limit: 5});
 console.log(records); // [ {id: 5, name: 'Kool Keith', city: 'Los Angeles' }, ... ]
 ```
 ### odoo.getFields(model, attributes)
