@@ -32,6 +32,8 @@ const odoo = new Odoo({
     password: 'admin'
 });
 
+await odoo.connect();
+
 const partnerId = await odoo.create('res.partner', {name: 'Kool Keith', email: 'lostinspace@example.com'});
 console.log(`Partner created with ID ${partnerId}`);
 ```
