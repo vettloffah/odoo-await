@@ -106,7 +106,7 @@ try {
   await odoo.connect();
   const partnerId = await odoo.create('res.partner', {name: 'Kool Keith', email: 'lostinspace@example.com'});
   const orderId = await odoo.create('sale.order', {partner_id: partnerId});
-  await odoo.createOrderLine(orderId, 47, 1, 45.55, 'Dehydrated space food capsule.');
+  await odoo.createOrderLine(orderId, 47, { qty: 2, price: 45.55, name: 'Dehydrated space food capsule'} );
 } catch(e) {
   console.log(e);
 }
