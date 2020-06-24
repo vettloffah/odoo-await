@@ -81,11 +81,11 @@ Returns detailed list of fields for a model, filtered by attributes. i.e. if you
 const fields = await odoo.getFields('res.partner', ['required']);
 console.log(fields);
 ```
-### odoo.createOrderLine(orderId, productId, qty, price, name)
+### odoo.createOrderLine(orderId, productId, opts)
 
 ```js
 const orderId = await odoo.create('sale.order', {partner_id: 54});
-await odoo.createOrderLine(orderId, 47, 1, 45.55, 'Dehydrated space food capsule');
+await odoo.createOrderLine(orderId, 47, { qty: 2, price: 45.55, name: 'Dehydrated space food capsule'} );
 ```
 
 ### Complete Example
