@@ -25,7 +25,7 @@ $ npm install odoo-await
 const Odoo = require('odoo-await');
 
 const odoo = new Odoo({
-    url: 'http://localhost',
+    baseUrl: 'http://localhost',
     port: 8069,
     db: 'odoo_db',
     username: 'admin',
@@ -95,7 +95,7 @@ This example creates a partner (customer), creates an order (quote) for the cust
 const Odoo = require('odoo-await');
 
 const odoo = new Odoo({
-    url: 'http://localhost',
+    baseUrl: 'http://localhost',
     port: 8069,
     db: 'odoo_db',
     username: 'admin',
