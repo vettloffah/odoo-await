@@ -50,6 +50,13 @@ Returns the ID of the created record.
 ```js
 const partnerId = await odoo.create('res.partner', {name: 'Kool Keith'})
 ```
+#### many2many fields 
+Provide an array of record ID's for many2many fields
+
+```js
+const partnerId = await odoo.create('res.partner', {name: 'Kool Keith', tag_ids: [1,3,5]})
+```
+
 ### odoo.read(model, recordId)
 Returns record data as an object.
 
@@ -60,7 +67,7 @@ const record = await odoo.read('res.partner', 54)
 Returns true if successful
 
 ```js
-const updated = await odoo.update('res.partner', 54, {street: '334 Lving Astro Blvd.'})
+const updated = await odoo.update('res.partner', 54, {street: '334 Living Astro Blvd.'})
 ```
 ### odoo.delete(model, recordId)
 Returns true if successful.
