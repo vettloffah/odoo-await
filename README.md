@@ -82,6 +82,12 @@ Searches for matching records and returns record data.
 const records =  await searchRead(`res.partner`, {country_id: 'United States'}, ['name', 'city'],  {limit: 5});
 console.log(records); // [ {id: 5, name: 'Kool Keith', city: 'Los Angeles' }, ... ]
 ```
+### odoo.search(model, domain)
+Searches for matching records and returns models (using method search by Odoo).
+```js
+const records =  await search(`res.partner`, {country_id: 'United States'});
+console.log(records); // [ {id: 5, name: 'Kool Keith', city: 'Los Angeles' }, ... ]
+```
 ### odoo.getFields(model, attributes)
 Returns detailed list of fields for a model, filtered by attributes. i.e. if you only want to know if fields are required you could call:
 ```js
