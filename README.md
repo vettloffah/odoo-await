@@ -5,10 +5,8 @@ Simple Odoo API client using async await.
 # Contributing
 Happy to merge all useful features and bug fixes. Just start an 'issue' regarding the update.
 
-Things that aren't currently included that should be:
+There are still some Odoo api methods that should be added: [Odoo External API](https://www.odoo.com/documentation/13.0/webservices/odoo.html)
 
-- Inspection and introspection
-- Additional helper functions to make working with the API easier for things that we might have to do often.
 
 ## Node version
 Node 11.16+
@@ -87,9 +85,18 @@ console.log(records); // [14,26,33, ... ]
 Searches for matching records and returns record data.
 Provide an array of field names if you only want certain fields returned.
 ```js
-const records =  await odoo.searchRead(`res.partner`, {country_id: 'United States'}, ['name', 'city'],  {limit: 5});
+const records =  await odoo.searchRead(`res.partner`, {country_id: 'United States'}, ['name', 'city'],  {limit: 5, offset: 10});
 console.log(records); // [ {id: 5, name: 'Kool Keith', city: 'Los Angeles' }, ... ]
 ```
+If you just want to do a basic search_read you can omit the extra args:
+```js
+const records =  await odoo.searchRead(`res.partner`, {country_id: 'United States'});
+```
+Empty args can be used if you need some type of filtering but not others:
+```js
+const records =  await odoo.searchRead(`res.partner`, {}, [], {limit: 10, offset: 20});
+```
+
 ### odoo.getFields(model, attributes)
 Returns detailed list of fields for a model, filtered by attributes. i.e. if you only want to know if fields are required you could call:
 ```js
