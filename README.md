@@ -77,16 +77,17 @@ const deleted = await odoo.delete('res.partner', 54);
 ```
 ## Other Methods
 ### odoo.search(model, domain)
-Searches and returns all matching records
+Searches and returns record ID's for all records that match the model and domain.
 ```js
-const records =  await search(`res.partner`, {country_id: 'United States'});
-console.log(records); // [ {id: 5, name: 'Kool Keith', city: 'Los Angeles' , ... ]
+const records =  await odoo.search(`res.partner`, {country_id: 'United States'});
+console.log(records); // [14,26,33, ... ]
 ```
 
 ### odoo.searchRead(model, domain, fields, opts)
-Searches for matching records and returns record data, with extra options.
+Searches for matching records and returns record data.
+Provide an array of field names if you only want certain fields returned.
 ```js
-const records =  await searchRead(`res.partner`, {country_id: 'United States'}, ['name', 'city'],  {limit: 5});
+const records =  await odoo.searchRead(`res.partner`, {country_id: 'United States'}, ['name', 'city'],  {limit: 5});
 console.log(records); // [ {id: 5, name: 'Kool Keith', city: 'Los Angeles' }, ... ]
 ```
 ### odoo.getFields(model, attributes)

@@ -47,6 +47,13 @@ describe('OddoAwait', () => {
     })
   })
 
+  describe('#search()', () => {
+    it('Searches for records and returns an array of record IDs', async() => {
+      const records = await odoo.search('res.partner', {email: 'seeingrobots@example.com'});
+      records.should.be.instanceOf(Array);
+    })
+  })
+
   describe('#delete()', () => {
     it('Deletes record and returns true', async() => {
       const deleted = await odoo.delete('res.partner', recordId);
