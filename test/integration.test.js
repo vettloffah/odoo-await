@@ -24,6 +24,7 @@ describe('OddoAwait', () => {
       recordId = await odoo.create('res.partner', {name: 'Kool Keith', email: 'lostinspace@example.com'});
       recordId.should.be.a.Number();
     })
+
   })
 
   describe('#read()', () => {
@@ -35,7 +36,7 @@ describe('OddoAwait', () => {
 
   describe('#update()', () => {
     it('Updates record and returns true', async() => {
-      const updated = await odoo.update('res.partner', recordId, {email: 'seeingrobots@example.com'});
+      const updated = await odoo.update('res.partner', recordId, {email: 'seeingrobots@example.com', category_id: [1,2]});
       updated.should.be.exactly(true);
     })
   })
