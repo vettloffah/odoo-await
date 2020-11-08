@@ -28,9 +28,9 @@ describe('OddoAwait', () => {
   })
 
   describe('#read()', () => {
-    it('Returns a record object', async() => {
-      const recordObject = await odoo.read('res.partner', recordId);
-      recordObject.should.have.property('id');
+    it('Fetches record data by an array of IDs', async() => {
+      const records = await odoo.read('res.partner', [recordId], ['name', 'email']);
+      records.should.be.instanceOf(Array);
     })
   })
 

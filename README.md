@@ -1,12 +1,11 @@
 # Odoo Await
 
-Simple Odoo API client using async await.
+Simple Odoo API client using async await. Features CRUD and extra methods.
+Odoo API docs: [Odoo External API](https://www.odoo.com/documentation/14.0/webservices/odoo.html)
 
 # Contributing
-Happy to merge all useful features and bug fixes. Just start an 'issue' regarding the update.
-
-There are still some Odoo api methods that should be added: [Odoo External API](https://www.odoo.com/documentation/13.0/webservices/odoo.html)
-
+Happy to merge all useful features and bug fixes. Just start an 'issue' regarding the update, fork the repo, 
+commit your changes, and submit a pull request.
 
 ## Node version
 Node 11.16+
@@ -56,16 +55,21 @@ const partnerId = await odoo.create('res.partner', {name: 'Kool Keith', tag_ids:
 ```
 
 ### odoo.read(model, recordId)
-Returns record data as an object.
+Takes an array of record ID's and fetches the record data. Returns an array. 
+Optionally, you can specify which fields to return. This 
+is usually a good idea, since there tends to be a lot of fields on the base models (like over 100).
 
 ```js
-const record = await odoo.read('res.partner', 54)
+const records = await odoo.read('res.partner', [54, 1568], ['name', 'email']);
+console.log(records); 
+// [ { name: 'Kool Keith', email: 'lostinspace@gmail.com }, { name: 'Jack Dorsey', email: 'jack@twitter.com' } ];
 ```
 ### odoo.update(model, recordId, params)
 Returns true if successful
 
 ```js
 const updated = await odoo.update('res.partner', 54, {street: '334 Living Astro Blvd.'})
+console.log(updated); // true
 ```
 ### odoo.delete(model, recordId)
 Returns true if successful.
@@ -77,8 +81,8 @@ const deleted = await odoo.delete('res.partner', 54);
 ### odoo.search(model, domain)
 Searches and returns record ID's for all records that match the model and domain.
 ```js
-const records =  await odoo.search(`res.partner`, {country_id: 'United States'});
-console.log(records); // [14,26,33, ... ]
+const recordIds =  await odoo.search(`res.partner`, {country_id: 'United States'});
+console.log(recordIds); // [14,26,33, ... ]
 ```
 
 ### odoo.searchRead(model, domain, fields, opts)
@@ -146,8 +150,8 @@ $ ODOO_DB=mydatabase ODOO_USER=myusername ODOO_PW=mypassword ODOO_PORT=8080 ODOO
 ```
 
 
-* [Odoo Docs](https://www.odoo.com/documentation/13.0)
-* [Odoo External API](https://www.odoo.com/documentation/13.0/webservices/odoo.html)
+* [Odoo Docs](https://www.odoo.com/documentation/14.0)
+* [Odoo External API](https://www.odoo.com/documentation/14.0/webservices/odoo.html)
 
 ## License
 
