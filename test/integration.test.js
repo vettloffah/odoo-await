@@ -43,7 +43,7 @@ describe('OddoAwait', () => {
 
   describe('#searchRead()', () => {
     it('Searches for records and returns the record(s) with data', async() => {
-      const records = await odoo.searchRead('res.partner', {email: 'seeingrobots@example.com'});
+      const records = await odoo.searchRead('res.partner', {email: ['seeingrobots@example.com']});
       records[0].should.have.property('name');
     })
   })
