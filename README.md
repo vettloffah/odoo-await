@@ -2,11 +2,20 @@
 
 Simple Odoo API client using async await. Features CRUD, external IDs, and related field methods.
 
-# Version 2.0 Release Notes
+## Release Notes
+
+####2.1.0
+1. [Feature] - Use domain filters like `<`, `=like`, `in`, etc. for more complex searches. See 
+[complex domain filters](#complex-domain-filters) below.
+
+####2.0.2
+1. [Bug fix] - Null values no longer throw errors.
+
+####2.0.0
 Version two introduces the following major feature additions:
-1. **Working with external ID's**. Create, search, read, update by using an external ID instead of model name and ID. See 
+1. [Feature] **Working with external ID's**. Create, search, read, update by using an external ID instead of model name and ID. See 
 [Working with external identifiers](#working-with-external-identifiers) below. 
-2. **Enhanced functionality when working with many2many or one2many fields**. Now you can create records on the fly, update 
+2. [Feature] **Enhanced functionality when working with many2many or one2many fields**. Now you can create records on the fly, update 
 records, delete, or replace. See [Many2many and one2many fields](#many2many-and-one2many-fields) below.
 
 # Contributing
@@ -167,6 +176,7 @@ await odoo.update('res.partner', 278, {
 
 ```
 ## Other Odoo API Methods
+
 #### odoo.search(model, domain)
 Searches and returns record ID's for all records that match the model and domain.
 ```js
@@ -186,6 +196,20 @@ console.log(records); // [ {id: 5, name: 'Kool Keith', city: 'Los Angeles' }, ..
 
 // Empty domain or other args can be used
 const records =  await odoo.searchRead(`res.partner`, {}, ['name', 'city'], {limit: 10, offset: 20});
+```
+
+#### Complex domain filters
+A domain filter array can be supplied if any of the alternate domain filters are needed, such as `<`, `>`, `=like`,`in` 
+etc. For a complete list check out the 
+[API Docs](https://www.odoo.com/documentation/14.0/reference/orm.html#reference-orm-domains).
+
+```js
+// single domain filter array
+const recordIds =  await odoo.search(`res.partner`, ['name', '=like', 'john%']);
+
+// or a multiple domain filter array (array of arrays)
+const recordIds =  await odoo.search(`res.partner`, [['name', '=like', 'john%'], ['sale_order_count', '>', 1]]);
+
 ```
 
 #### odoo.getFields(model, attributes)
