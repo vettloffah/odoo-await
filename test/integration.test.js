@@ -36,7 +36,7 @@ describe('OddoAwait', () => {
 
   describe('#update()', () => {
     it('Updates record and returns true', async() => {
-      const updated = await odoo.update('res.partner', recordId, {email: 'seeingrobots@example.com', category_id: [1,2]});
+      const updated = await odoo.update('res.partner', recordId, {email: 'seeingrobots@example.com'});
       updated.should.be.exactly(true);
     })
   })

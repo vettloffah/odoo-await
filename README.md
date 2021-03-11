@@ -4,14 +4,17 @@ Simple Odoo API client using async await. Features CRUD, external IDs, and relat
 
 ## Release Notes
 
-####2.1.0
+#### 2.1.1
+1. [Bug Fix] - Fixed type casting in search methods. [Issue #8](https://github.com/vettloffah/odoo-await/issues/8).
+
+#### 2.1.0
 1. [Feature] - Use domain filters like `<`, `=like`, `in`, etc. for more complex searches. See 
 [complex domain filters](#complex-domain-filters) below.
 
-####2.0.2
+#### 2.0.2
 1. [Bug fix] - Null values no longer throw errors.
 
-####2.0.0
+#### 2.0.0
 Version two introduces the following major feature additions:
 1. [Feature] **Working with external ID's**. Create, search, read, update by using an external ID instead of model name and ID. See 
 [Working with external identifiers](#working-with-external-identifiers) below. 
