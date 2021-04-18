@@ -4,6 +4,9 @@ Simple Odoo API client using async await. Features CRUD, external IDs, and relat
 
 ## Release Notes
 
+#### 2.2.0
+1. [Feature] - Now supports sorting records returned by the `searchRead()` function. Thanks to @tsogoo for the PR. 
+   See [other API methods](#other-odoo-api-methods) below.
 #### 2.1.1
 1. [Bug Fix] - Fixed type casting in search methods. [Issue #8](https://github.com/vettloffah/odoo-await/issues/8).
 
@@ -194,7 +197,10 @@ const records =  await odoo.searchRead(`res.partner`);
 Searches for matching records and returns record data.
 Provide an array of field names if you only want certain fields returned.
 ```js
-const records =  await odoo.searchRead(`res.partner`, {country_id: 'United States'}, ['name', 'city'],  {limit: 5, offset: 10});
+const records =  await odoo.searchRead(`res.partner`, 
+        {country_id: 'United States'}, 
+        ['name', 'city'],  
+        {limit: 5, offset: 10, order: 'name, desc'});
 console.log(records); // [ {id: 5, name: 'Kool Keith', city: 'Los Angeles' }, ... ]
 
 // Empty domain or other args can be used
