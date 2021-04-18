@@ -34,8 +34,33 @@ describe('OddoAwait external ID test', () => {
     })
 
     it('searches with a multiple domain filter array', async() => {
-      const records = await odoo.search('res.partner', [['name', '=like', 'john%'], ['email', '=', 'johndoe@example.com']]);
+      const records = await odoo.search('res.partner',
+        [
+          ['name', '=like', 'john%'],
+          ['email', '=', 'johndoe@example.com']
+        ]);
       records.length.should.be.greaterThan(0);
+    })
+  })
+
+  describe('#searchRead()', () => {
+    it('Searches with a simple domain object and returns the records with data', async() => {
+      const records = await odoo.searchRead('res.partner', {name: 'john doe'});
+      records[0].should.have.property('name');
+    })
+
+    it('Uses a filter array to search for records and returns the records with data', async() => {
+      const records = await odoo.searchRead('res.partner', ['name', '=', 'john doe']);
+      records[0].should.have.property('name');
+    })
+
+    it('searches with a multiple domain filter array', async() => {
+      const records = await odoo.searchRead('res.partner',
+        [
+          ['name', '=like', 'john%'],
+          ['email', '=', 'johndoe@example.com']
+        ]);
+      records[0].should.have.property('name');
     })
   })
 
