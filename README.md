@@ -2,28 +2,6 @@
 
 Simple Odoo API client using async await. Features CRUD, external IDs, and related field methods.
 
-## Release Notes
-
-#### 2.2.0
-1. [Feature] - Now supports sorting records returned by the `searchRead()` function. Thanks to @tsogoo for the PR. 
-   See [other API methods](#other-odoo-api-methods) below.
-#### 2.1.1
-1. [Bug Fix] - Fixed type casting in search methods. [Issue #8](https://github.com/vettloffah/odoo-await/issues/8).
-
-#### 2.1.0
-1. [Feature] - Use domain filters like `<`, `=like`, `in`, etc. for more complex searches. See 
-[complex domain filters](#complex-domain-filters) below.
-
-#### 2.0.2
-1. [Bug fix] - Null values no longer throw errors.
-
-#### 2.0.0
-Version two introduces the following major feature additions:
-1. [Feature] **Working with external ID's**. Create, search, read, update by using an external ID instead of model name and ID. See 
-[Working with external identifiers](#working-with-external-identifiers) below. 
-2. [Feature] **Enhanced functionality when working with many2many or one2many fields**. Now you can create records on the fly, update 
-records, delete, or replace. See [Many2many and one2many fields](#many2many-and-one2many-fields) below.
-
 # Contributing
 Happy to merge all useful features and bug fixes. Just start an 'issue' regarding the update, fork the repo, 
 commit your changes, and submit a pull request.
@@ -31,10 +9,13 @@ commit your changes, and submit a pull request.
 ## Node version
 Node 11.16+
 
+## Odoo Version
+Odoo 12 +
+
 ## Installation
 
 ```sh
-$ npm install odoo-await
+npm install odoo-await
 ```
 
 ## Usage
@@ -54,6 +35,15 @@ await odoo.connect();
 
 const partnerId = await odoo.create('res.partner', {name: 'Kool Keith', email: 'lostinspace@example.com'});
 console.log(`Partner created with ID ${partnerId}`);
+
+// if connecting to a dev instance of odoo.sh, you're config will looking something like:
+const odoo = new Odoo({
+   baseUrl: 'https://some-database-name-5-29043948.dev.odoo.com/',
+   db: 'some-database-name-5-29043948',
+   port: 443,
+   username: 'myusername',
+   password: 'somepassword'
+});
 ```
 # Methods
 
@@ -281,9 +271,34 @@ If you aren't using the defaults, pass the variables in command line with enviro
 $ ODOO_DB=mydatabase ODOO_USER=myusername ODOO_PW=mypassword ODOO_PORT=8080 ODOO_BASE_URL=https://myodoo.com npm test 
 ```
 
-
 * [Odoo Docs](https://www.odoo.com/documentation/14.0)
 * [Odoo External API](https://www.odoo.com/documentation/14.0/webservices/odoo.html)
+
+## Release Notes
+
+#### 2.2.2
+1. Remove console log on successful connection - [PR #15](https://github.com/vettloffah/odoo-await/pull/15)
+2. Update dependency glob-parent
+3. Updated readme
+#### 2.2.0
+1. [Feature] - Now supports sorting records returned by the `searchRead()` function. Thanks to @tsogoo for the PR.
+   See [other API methods](#other-odoo-api-methods) below.
+#### 2.1.1
+1. [Bug Fix] - Fixed type casting in search methods. [Issue #8](https://github.com/vettloffah/odoo-await/issues/8).
+
+#### 2.1.0
+1. [Feature] - Use domain filters like `<`, `=like`, `in`, etc. for more complex searches. See
+   [complex domain filters](#complex-domain-filters) below.
+
+#### 2.0.2
+1. [Bug fix] - Null values no longer throw errors.
+
+#### 2.0.0
+Version two introduces the following major feature additions:
+1. [Feature] **Working with external ID's**. Create, search, read, update by using an external ID instead of model name and ID. See
+   [Working with external identifiers](#working-with-external-identifiers) below.
+2. [Feature] **Enhanced functionality when working with many2many or one2many fields**. Now you can create records on the fly, update
+   records, delete, or replace. See [Many2many and one2many fields](#many2many-and-one2many-fields) below.
 
 ## License
 
