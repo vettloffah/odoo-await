@@ -66,11 +66,12 @@ const partnerId = await odoo.create('res.partner', {name: 'Kool Keith'});
 Takes an array of record ID's and fetches the record data. Returns an array. 
 Optionally, you can specify which fields to return. This 
 is usually a good idea, since there tends to be a lot of fields on the base models (like over 100).
+The record ID is always returned regardless of fields specified.
 
 ```js
 const records = await odoo.read('res.partner', [54, 1568], ['name', 'email']);
 console.log(records); 
-// [ { name: 'Kool Keith', email: 'lostinspace@gmail.com }, { name: 'Jack Dorsey', email: 'jack@twitter.com' } ];
+// [ { id: 127362, name: 'Kool Keith', email: 'lostinspace@gmail.com }, { id: 127883, name: 'Jack Dorsey', email: 'jack@twitter.com' } ];
 ```
 #### odoo.update(model, recordId, params)
 Returns true if successful
@@ -191,7 +192,7 @@ const records =  await odoo.searchRead(`res.partner`,
         {country_id: 'United States'}, 
         ['name', 'city'],  
         {limit: 5, offset: 10, order: 'name, desc'});
-console.log(records); // [ {id: 5, name: 'Kool Keith', city: 'Los Angeles' }, ... ]
+console.log(records); // [ { id: 5, name: 'Kool Keith', city: 'Los Angeles' }, ... ]
 
 // Empty domain or other args can be used
 const records =  await odoo.searchRead(`res.partner`, {}, ['name', 'city'], {limit: 10, offset: 20});
@@ -218,29 +219,28 @@ const records = await odoo.searchRead('res.partner',
         ['|', ['email', '=', 'charlie@example.com'], ['name', 'ilike', 'charlie']]);
 ```
 
-
 #### odoo.getFields(model, attributes)
-Returns detailed list of fields for a model, filtered by attributes. i.e. if you only want to know if fields are required you could call:
+Returns detailed list of fields for a model, filtered by attributes. e.g., if you only want to know if fields are required you could call:
 ```js
 const fields = await odoo.getFields('res.partner', ['required']);
 console.log(fields);
 ```
 
 ## Working With External Identifiers
-External ID's can be important when syncing data between systems or updating 
+External ID's can be important when using the native Odoo import feature with CSV files to sync data between systems, or updating 
 records using your own unique identifiers instead of the Odoo database ID. 
 
 External ID's are created automatically when exporting or importing data using the Odoo 
 _user interface_, but when working with the API this must be done intentionally.
 
-External IDs are managed separately in the 'ir.model.data' model in the database - so these methods make working with 
+External IDs are managed separately in the `ir.model.data` model in the database - so these methods make working with 
 them easier.
 
 #### Module names with external ID's
 External ID's require a module name along with the ID. If you don't supply a module name when creating an external ID 
-with this library, the default module name '\_\_api__' will be used. 
+with this library, the default module name '__api__' will be used. 
 What that means is that `'some-unique-identifier'` will live in the database as 
-`'\_\_api__.some-unique-identifier'`. You do _not_ need to supply the module name when searching using externalId.
+`'__api__.some-unique-identifier'`. You do _not_ need to supply the module name when searching using externalId.
 
 
 #### create(model, params, externalId, moduleName)
@@ -286,6 +286,8 @@ $ ODOO_DB=mydatabase ODOO_USER=myusername ODOO_PW=mypassword ODOO_PORT=8080 ODOO
 
 #### 2.3.0
 1. Add support for logical operators while searching
+#### 2.2.3
+1. Update readme
 #### 2.2.2
 1. Remove console log on successful connection - [PR #15](https://github.com/vettloffah/odoo-await/pull/15)
 2. Update dependency glob-parent
