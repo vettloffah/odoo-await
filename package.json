@@ -1,6 +1,6 @@
 {
   "name": "odoo-await",
-  "version": "2.2.2",
+  "version": "2.3.0",
   "description": "Simple Odoo API client using async await.",
   "main": "lib/index.js",
   "directories": {
