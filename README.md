@@ -199,17 +199,24 @@ const records =  await odoo.searchRead(`res.partner`, {}, ['name', 'city'], {lim
 ```
 
 #### Complex domain filters
-A domain filter array can be supplied if any of the alternate domain filters are needed, such as `<`, `>`, `=like`,`in` 
-etc. For a complete list check out the 
+A domain filter array can be supplied if any of the alternate domain filters are needed, such as 
+`<`, `>`, `like`, `=like`, `ilike`, `in` etc. For a complete list check out the 
 [API Docs](https://www.odoo.com/documentation/14.0/reference/orm.html#reference-orm-domains).
+You can also use the logical operators OR `"|"`, AND `"&"`, NOT `"!"`.
+Works in both the `search()` and `searchRead()` functions.
 
 ```js
 // single domain filter array
-const recordIds =  await odoo.search(`res.partner`, ['name', '=like', 'john%']);
+const recordIds =  await odoo.search('res.partner', ['name', '=like', 'john%']);
 
 // or a multiple domain filter array (array of arrays)
-const recordIds =  await odoo.search(`res.partner`, [['name', '=like', 'john%'], ['sale_order_count', '>', 1]]);
+const recordIds =  await odoo.search('res.partner', 
+        [['name', '=like', 'john%'], ['sale_order_count', '>', 1]]);
 
+// logical operator OR
+// email is "charlie@example.com" OR name includes "charlie"
+const records = await odoo.searchRead('res.partner', 
+        ['|', ['email', '=', 'charlie@example.com'], ['name', 'ilike', 'charlie']]);
 ```
 
 #### odoo.getFields(model, attributes)
@@ -277,6 +284,8 @@ $ ODOO_DB=mydatabase ODOO_USER=myusername ODOO_PW=mypassword ODOO_PORT=8080 ODOO
 
 ## Release Notes
 
+#### 2.3.0
+1. Add support for logical operators while searching
 #### 2.2.3
 1. Update readme
 #### 2.2.2
