@@ -191,7 +191,7 @@ Provide an array of field names if you only want certain fields returned.
 const records =  await odoo.searchRead(`res.partner`, 
         {country_id: 'United States'}, 
         ['name', 'city'],  
-        {limit: 5, offset: 10, order: 'name, desc'});
+        {limit: 5, offset: 10, order: 'name, desc', context: { lang: 'en_US' } });
 console.log(records); // [ { id: 5, name: 'Kool Keith', city: 'Los Angeles' }, ... ]
 
 // Empty domain or other args can be used
@@ -284,6 +284,8 @@ $ ODOO_DB=mydatabase ODOO_USER=myusername ODOO_PW=mypassword ODOO_PORT=8080 ODOO
 
 ## Release Notes
 
+#### 2.4.0
+1. Add `context` option to `searchRead()` method (thanks to @tomas-padrieza)
 #### 2.3.0
 1. Add support for logical operators while searching
 #### 2.2.3
