@@ -3,7 +3,7 @@
 Simple Odoo API client using async await. Features CRUD, external IDs, and related field methods.
 
 # Contributing
-Happy to merge all useful features and bug fixes. Just start an 'issue' regarding the update, fork the repo,
+Happy to merge all useful features and bug fixes. Just start an 'issue' regarding the update, fork the repo, 
 commit your changes, and submit a pull request.
 
 ## Node version
@@ -57,12 +57,12 @@ as follows:
 ### odoo.connect()
 Must be called before other methods.
 ### odoo.execute_kw(model,method,params)
-This method is wrapped inside the below methods. If below methods don't do what you need, you can use this method. Docs:
+This method is wrapped inside the below methods. If below methods don't do what you need, you can use this method. Docs: 
 [Odoo External API](https://www.odoo.com/documentation/14.0/webservices/odoo.html)
 
 ## CRUD
 #### odoo.create(model, params, externalId)
-Returns the ID of the created record. The externalId parameter is special. If supplied, will create a linked record
+Returns the ID of the created record. The externalId parameter is special. If supplied, will create a linked record 
 in the `ir.model.data` model. See the "working with external identifiers" section below for more information.
 
 ```js
@@ -70,14 +70,14 @@ const partnerId = await odoo.create('res.partner', {name: 'Kool Keith'});
 ```
 
 #### odoo.read(model, recordId, fields)
-Takes an array of record ID's and fetches the record data. Returns an array.
-Optionally, you can specify which fields to return. This
+Takes an array of record ID's and fetches the record data. Returns an array. 
+Optionally, you can specify which fields to return. This 
 is usually a good idea, since there tends to be a lot of fields on the base models (like over 100).
 The record ID is always returned regardless of fields specified.
 
 ```js
 const records = await odoo.read('res.partner', [54, 1568], ['name', 'email']);
-console.log(records);
+console.log(records); 
 // [ { id: 127362, name: 'Kool Keith', email: 'lostinspace@gmail.com }, { id: 127883, name: 'Jack Dorsey', email: 'jack@twitter.com' } ];
 ```
 #### odoo.update(model, recordId, params)
@@ -95,7 +95,7 @@ const deleted = await odoo.delete('res.partner', 54);
 ```
 
 ## many2many and one2many fields
-Odoo handles the related field lists in a special way. You can choose to:
+Odoo handles the related field lists in a special way. You can choose to: 
 1. `add` an existing record to the list using the record ID
 2. `update` an existing record in the record set using ID and new values
 2. `create` a new record on the fly and add it to the list using values
@@ -105,12 +105,12 @@ Odoo handles the related field lists in a special way. You can choose to:
 In order to use any of these actions on a field, supply an object as the field value with the following parameters:
 - **action** (required) - one of the strings from above
 - **id** (required for actions that use id(s) ) - can usually be an array, or a single number
-- **value** (required for actions that update or create new related records) - can usually be an single value object, or
+- **value** (required for actions that update or create new related records) - can usually be an single value object, or 
 an array of value objects if creating mutliple records
 
 #### Examples
 
-
+  
 
 ```js
 
@@ -130,7 +130,7 @@ await odoo.update('res.partner', 278, {
   category_id: {
     action: 'update',
     id: 3,
-    value: { name: 'Updated category' }
+    value: { name: 'Updated category' } 
   }
 });
 
@@ -195,10 +195,10 @@ const records =  await odoo.searchRead(`res.partner`);
 Searches for matching records and returns record data.
 Provide an array of field names if you only want certain fields returned.
 ```js
-const records =  await odoo.searchRead(`res.partner`,
-        {country_id: 'United States'},
-        ['name', 'city'],
-        {limit: 5, offset: 10, order: 'name, desc'});
+const records =  await odoo.searchRead(`res.partner`, 
+        {country_id: 'United States'}, 
+        ['name', 'city'],  
+        {limit: 5, offset: 10, order: 'name, desc', context: { lang: 'en_US' } });
 console.log(records); // [ { id: 5, name: 'Kool Keith', city: 'Los Angeles' }, ... ]
 
 // Empty domain or other args can be used
@@ -206,8 +206,8 @@ const records =  await odoo.searchRead(`res.partner`, {}, ['name', 'city'], {lim
 ```
 
 #### Complex domain filters
-A domain filter array can be supplied if any of the alternate domain filters are needed, such as
-`<`, `>`, `like`, `=like`, `ilike`, `in` etc. For a complete list check out the
+A domain filter array can be supplied if any of the alternate domain filters are needed, such as 
+`<`, `>`, `like`, `=like`, `ilike`, `in` etc. For a complete list check out the 
 [API Docs](https://www.odoo.com/documentation/14.0/reference/orm.html#reference-orm-domains).
 You can also use the logical operators OR `"|"`, AND `"&"`, NOT `"!"`.
 Works in both the `search()` and `searchRead()` functions.
@@ -217,12 +217,12 @@ Works in both the `search()` and `searchRead()` functions.
 const recordIds =  await odoo.search('res.partner', ['name', '=like', 'john%']);
 
 // or a multiple domain filter array (array of arrays)
-const recordIds =  await odoo.search('res.partner',
+const recordIds =  await odoo.search('res.partner', 
         [['name', '=like', 'john%'], ['sale_order_count', '>', 1]]);
 
 // logical operator OR
 // email is "charlie@example.com" OR name includes "charlie"
-const records = await odoo.searchRead('res.partner',
+const records = await odoo.searchRead('res.partner', 
         ['|', ['email', '=', 'charlie@example.com'], ['name', 'ilike', 'charlie']]);
 ```
 
@@ -234,25 +234,25 @@ console.log(fields);
 ```
 
 ## Working With External Identifiers
-External ID's can be important when using the native Odoo import feature with CSV files to sync data between systems, or updating
-records using your own unique identifiers instead of the Odoo database ID.
+External ID's can be important when using the native Odoo import feature with CSV files to sync data between systems, or updating 
+records using your own unique identifiers instead of the Odoo database ID. 
 
-External ID's are created automatically when exporting or importing data using the Odoo
+External ID's are created automatically when exporting or importing data using the Odoo 
 _user interface_, but when working with the API this must be done intentionally.
 
-External IDs are managed separately in the `ir.model.data` model in the database - so these methods make working with
+External IDs are managed separately in the `ir.model.data` model in the database - so these methods make working with 
 them easier.
 
 #### Module names with external ID's
-External ID's require a module name along with the ID. If you don't supply a module name when creating an external ID
-with this library, the default module name '__api__' will be used.
-What that means is that `'some-unique-identifier'` will live in the database as
+External ID's require a module name along with the ID. If you don't supply a module name when creating an external ID 
+with this library, the default module name '__api__' will be used. 
+What that means is that `'some-unique-identifier'` will live in the database as 
 `'__api__.some-unique-identifier'`. You do _not_ need to supply the module name when searching using externalId.
 
 
 #### create(model, params, externalId, moduleName)
-If creating a record, simply supply the external ID as the third parameter, and a module name as an optional 4th parameter.
-This example creates a record and an external ID in one method. (although it makes two separate `create` calls to the
+If creating a record, simply supply the external ID as the third parameter, and a module name as an optional 4th parameter. 
+This example creates a record and an external ID in one method. (although it makes two separate `create` calls to the 
 database under the hood).
 
 ```js
@@ -264,7 +264,7 @@ For records that are already created without an external ID, you can link an ext
 await odoo.createExternalId('product.product', 76, 'some-unique-identifier');
 ```
 #### readByExternalId(externalId, fields);
-Find a record by the external ID, and return whatever fields you want. Leave the `fields` parameter empty to return all
+Find a record by the external ID, and return whatever fields you want. Leave the `fields` parameter empty to return all 
 fields.
 ```js
 const record = await odoo.readByExternalId('some-unique-identifier', ['name', 'email']);
@@ -279,11 +279,11 @@ The default test will run through basic CRUD functions, creating a `res.partner`
 
 If you are using default db name `"odoo_db"`, username `"admin"`, password `"admin"`, and port `8069` on `"http://localhost"`:
 ```shell script
-$ npm test
+$ npm test 
 ```
 If you aren't using the defaults, pass the variables in command line with environment variables:
 ```shell script
-$ ODOO_DB=mydatabase ODOO_USER=myusername ODOO_PW=mypassword ODOO_PORT=8080 ODOO_BASE_URL=https://myodoo.com npm test
+$ ODOO_DB=mydatabase ODOO_USER=myusername ODOO_PW=mypassword ODOO_PORT=8080 ODOO_BASE_URL=https://myodoo.com npm test 
 ```
 
 * [Odoo Docs](https://www.odoo.com/documentation/14.0)
@@ -291,6 +291,8 @@ $ ODOO_DB=mydatabase ODOO_USER=myusername ODOO_PW=mypassword ODOO_PORT=8080 ODOO
 
 ## Release Notes
 
+#### 2.4.0
+1. Add `context` option to `searchRead()` method (thanks to @tomas-padrieza)
 #### 2.3.0
 1. Add support for logical operators while searching
 #### 2.2.3
