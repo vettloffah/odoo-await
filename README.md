@@ -24,8 +24,8 @@ npm install odoo-await
 const Odoo = require('odoo-await');
 
 const odoo = new Odoo({
-    baseUrl: 'http://localhost',
-    port: undefined,
+    baseUrl: 'https://yourdomain.odoo.com',
+    port: undefined, // see comments below regarding port option
     db: 'odoo_db',
     username: 'admin',
     password: 'admin'
@@ -49,7 +49,7 @@ From version 3.x onwards the port is optional and will resolve
 as follows:
 
   - `port` option, if provided
-  - port number in URL, if provided
+  - port number in URL, if provided. e.g. `http://example.com:8069`
   - default port for protocol, so 443 for https and 80 for http
 
 # Methods
@@ -291,6 +291,9 @@ $ ODOO_DB=mydatabase ODOO_USER=myusername ODOO_PW=mypassword ODOO_PORT=8080 ODOO
 
 ## Release Notes
 
+#### 3.0.0
+1. Port now defaults to protocol. So, `https` defaults to 443, and `http` defaults to 80. Port 8069 is no longer default, 
+which makes this a breaking change. Version updated to 3.0. Thanks to @ajmas for the contribution.
 #### 2.4.0
 1. Add `context` option to `searchRead()` method (thanks to @tomas-padrieza)
 #### 2.3.0
