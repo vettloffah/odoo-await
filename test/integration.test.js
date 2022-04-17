@@ -4,11 +4,11 @@ const should = require('should');
 describe('OddoAwait', () => {
 
   const odoo = new OdooAwait({
-    baseUrl: process.env.ODOO_BASE_URL || 'http://localhost',
-    port: process.env.ODOO_PORT || 8069,
-    db: process.env.ODOO_DB || 'odoo_db',
-    username: process.env.ODOO_USER || 'admin',
-    password: process.env.ODOO_PW || 'admin'
+    baseUrl: process.env.ODOO_BASE_URL,
+    port: process.env.ODOO_PORT,
+    db: process.env.ODOO_DB,
+    username: process.env.ODOO_USER,
+    password: process.env.ODOO_PW
   });
 
   describe('#connect()', () => {
