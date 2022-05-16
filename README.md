@@ -289,8 +289,11 @@ $ ODOO_DB=mydatabase ODOO_USER=myusername ODOO_PW=mypassword ODOO_PORT=8080 ODOO
 * [Odoo Docs](https://www.odoo.com/documentation/14.0)
 * [Odoo External API](https://www.odoo.com/documentation/14.0/webservices/odoo.html)
 
-## Release Notes
+## Changelog
 
+#### 3.1.0
+1. Replaced deprecated `querystring` package with global URL.
+2. Removed some tests that might fail on databases that already have records in them.
 #### 3.0.0
 1. Port now defaults to protocol. So, `https` defaults to 443, and `http` defaults to 80. Port 8069 is no longer default, 
 which makes this a breaking change. Version updated to 3.0. Thanks to @ajmas for the contribution.
