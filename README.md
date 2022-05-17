@@ -59,6 +59,12 @@ Must be called before other methods.
 ### odoo.execute_kw(model,method,params)
 This method is wrapped inside the below methods. If below methods don't do what you need, you can use this method. Docs: 
 [Odoo External API](https://www.odoo.com/documentation/14.0/webservices/odoo.html)
+### odoo.action(model, action, recordId)
+Execute a server action on a record or a set of records. Oddly, the Odoo API returns **false**
+ if it was successful.
+ ```js
+ await odoo.action('account.move', 'action_post', [126996, 126995]);
+ ```
 
 ## CRUD
 #### odoo.create(model, params, externalId)
@@ -291,6 +297,8 @@ $ ODOO_DB=mydatabase ODOO_USER=myusername ODOO_PW=mypassword ODOO_PORT=8080 ODOO
 
 ## Changelog
 
+#### 3.3.0
+1. Add `action()` method to execute specified server action on record(s).
 #### 3.2.0
 1. Add support for url basic auth. Thanks to @aharter for the contribution - [PR #7](https://github.com/vettloffah/odoo-await/pull/17)
 #### 3.1.0
