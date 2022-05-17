@@ -291,6 +291,8 @@ $ ODOO_DB=mydatabase ODOO_USER=myusername ODOO_PW=mypassword ODOO_PORT=8080 ODOO
 
 ## Changelog
 
+#### 3.2.0
+1. Add support for url basic auth. Thanks to @aharter for the contribution - [PR #7](https://github.com/vettloffah/odoo-await/pull/17)
 #### 3.1.0
 1. Replaced deprecated `querystring` package with global URL.
 2. Removed some tests that might fail on databases that already have records in them.
