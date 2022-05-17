@@ -24,8 +24,8 @@ npm install odoo-await
 const Odoo = require('odoo-await');
 
 const odoo = new Odoo({
-    baseUrl: 'http://localhost',
-    port: 8069,
+    baseUrl: 'https://yourdomain.odoo.com',
+    port: undefined, // see comments below regarding port option
     db: 'odoo_db',
     username: 'admin',
     password: 'admin'
@@ -40,11 +40,18 @@ console.log(`Partner created with ID ${partnerId}`);
 const odoo = new Odoo({
    baseUrl: 'https://some-database-name-5-29043948.dev.odoo.com/',
    db: 'some-database-name-5-29043948',
-   port: 443,
    username: 'myusername',
    password: 'somepassword'
 });
 ```
+
+From version 3.x onwards the port is optional and will resolve
+as follows:
+
+  - `port` option, if provided
+  - port number in URL, if provided. e.g. `http://example.com:8069`
+  - default port for protocol, so 443 for https and 80 for http
+
 # Methods
 
 ### odoo.connect()
@@ -191,7 +198,7 @@ Provide an array of field names if you only want certain fields returned.
 const records =  await odoo.searchRead(`res.partner`, 
         {country_id: 'United States'}, 
         ['name', 'city'],  
-        {limit: 5, offset: 10, order: 'name, desc'});
+        {limit: 5, offset: 10, order: 'name, desc', context: { lang: 'en_US' } });
 console.log(records); // [ { id: 5, name: 'Kool Keith', city: 'Los Angeles' }, ... ]
 
 // Empty domain or other args can be used
@@ -282,8 +289,16 @@ $ ODOO_DB=mydatabase ODOO_USER=myusername ODOO_PW=mypassword ODOO_PORT=8080 ODOO
 * [Odoo Docs](https://www.odoo.com/documentation/14.0)
 * [Odoo External API](https://www.odoo.com/documentation/14.0/webservices/odoo.html)
 
-## Release Notes
+## Changelog
 
+#### 3.1.0
+1. Replaced deprecated `querystring` package with global URL.
+2. Removed some tests that might fail on databases that already have records in them.
+#### 3.0.0
+1. Port now defaults to protocol. So, `https` defaults to 443, and `http` defaults to 80. Port 8069 is no longer default, 
+which makes this a breaking change. Version updated to 3.0. Thanks to @ajmas for the contribution.
+#### 2.4.0
+1. Add `context` option to `searchRead()` method (thanks to @tomas-padrieza)
 #### 2.3.0
 1. Add support for logical operators while searching
 #### 2.2.3
