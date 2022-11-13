@@ -1,6 +1,6 @@
 # Odoo Await
 
-Simple Odoo API client using async await. Features CRUD, external IDs, and related field methods.
+Simple Odoo API client built with promises for async / await usage. Features CRUD, many2many field methods, and more.
 
 # Contributing
 Happy to merge all useful features and bug fixes. Just start an 'issue' regarding the update, fork the repo, 
@@ -36,7 +36,7 @@ await odoo.connect();
 const partnerId = await odoo.create('res.partner', {name: 'Kool Keith', email: 'lostinspace@example.com'});
 console.log(`Partner created with ID ${partnerId}`);
 
-// if connecting to a dev instance of odoo.sh, you're config will looking something like:
+// if connecting to a dev instance of odoo.sh, your config will looking something like:
 const odoo = new Odoo({
    baseUrl: 'https://some-database-name-5-29043948.dev.odoo.com/',
    db: 'some-database-name-5-29043948',
@@ -270,11 +270,7 @@ const updated = await odoo.updateByExternalId('some-unique-identifier', {name: '
 ## Testing
 The default test will run through basic CRUD functions, creating a `res.partner` record, updating it, reading it, and deleting it. Uses Mocha and Should as dependencies.
 
-If you are using default db name `"odoo_db"`, username `"admin"`, password `"admin"`, and port `8069` on `"http://localhost"`:
-```shell script
-$ npm test 
-```
-If you aren't using the defaults, pass the variables in command line with environment variables:
+Pass the variables in command line with environment variables:
 ```shell script
 $ ODOO_DB=mydatabase ODOO_USER=myusername ODOO_PW=mypassword ODOO_PORT=8080 ODOO_BASE_URL=https://myodoo.com npm test 
 ```
@@ -282,8 +278,23 @@ $ ODOO_DB=mydatabase ODOO_USER=myusername ODOO_PW=mypassword ODOO_PORT=8080 ODOO
 * [Odoo Docs](https://www.odoo.com/documentation/14.0)
 * [Odoo External API](https://www.odoo.com/documentation/14.0/webservices/odoo.html)
 
-## Release Notes
+## Changelog
 
+#### 3.3.1
+1. Update packages for bulnerabilities.
+2. Merge PR [#30](https://github.com/vettloffah/odoo-await/pull/30) for basic auth option, contribution by @aharter.
+#### 3.3.0
+1. Add `action()` method to execute specified server action on record(s).
+#### 3.2.0
+1. Add support for url basic auth. Thanks to @aharter for the contribution - [PR #7](https://github.com/vettloffah/odoo-await/pull/17)
+#### 3.1.0
+1. Replaced deprecated `querystring` package with global URL.
+2. Removed some tests that might fail on databases that already have records in them.
+#### 3.0.0
+1. Port now defaults to protocol. So, `https` defaults to 443, and `http` defaults to 80. Port 8069 is no longer default, 
+which makes this a breaking change. Version updated to 3.0. Thanks to @ajmas for the contribution.
+#### 2.4.0
+1. Add `context` option to `searchRead()` method (thanks to @tomas-padrieza)
 #### 2.3.0
 1. Add support for logical operators while searching
 #### 2.2.3
