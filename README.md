@@ -293,9 +293,11 @@ $ ODOO_DB=mydatabase ODOO_USER=myusername ODOO_PW=mypassword ODOO_PORT=8080 ODOO
 
 ## Changelog
 
+#### 3.3.2
+1. Merge PR [#30](https://github.com/vettloffah/odoo-await/pull/30) for basic auth 
 #### 3.3.1
 1. Update packages for bulnerabilities.
-2. Merge PR [#30](https://github.com/vettloffah/odoo-await/pull/30) for basic auth option, contribution by @aharter.
+option, contribution by @aharter.
 #### 3.3.0
 1. Add `action()` method to execute specified server action on record(s).
 #### 3.2.0
