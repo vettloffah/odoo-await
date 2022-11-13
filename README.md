@@ -24,8 +24,8 @@ npm install odoo-await
 const Odoo = require('odoo-await');
 
 const odoo = new Odoo({
-    baseUrl: 'http://localhost',
-    port: 8069,
+    baseUrl: 'https://yourdomain.odoo.com',
+    port: undefined, // see comments below regarding port option
     db: 'odoo_db',
     username: 'admin',
     password: 'admin'
@@ -40,11 +40,18 @@ console.log(`Partner created with ID ${partnerId}`);
 const odoo = new Odoo({
    baseUrl: 'https://some-database-name-5-29043948.dev.odoo.com/',
    db: 'some-database-name-5-29043948',
-   port: 443,
    username: 'myusername',
    password: 'somepassword'
 });
 ```
+
+From version 3.x onwards the port is optional and will resolve
+as follows:
+
+  - `port` option, if provided
+  - port number in URL, if provided. e.g. `http://example.com:8069`
+  - default port for protocol, so 443 for https and 80 for http
+
 # Methods
 
 ### odoo.connect()
@@ -52,6 +59,12 @@ Must be called before other methods.
 ### odoo.execute_kw(model,method,params)
 This method is wrapped inside the below methods. If below methods don't do what you need, you can use this method. Docs: 
 [Odoo External API](https://www.odoo.com/documentation/14.0/webservices/odoo.html)
+### odoo.action(model, action, recordId)
+Execute a server action on a record or a set of records. Oddly, the Odoo API returns **false**
+ if it was successful.
+ ```js
+ await odoo.action('account.move', 'action_post', [126996, 126995]);
+ ```
 
 ## CRUD
 #### odoo.create(model, params, externalId)
@@ -191,7 +204,7 @@ Provide an array of field names if you only want certain fields returned.
 const records =  await odoo.searchRead(`res.partner`, 
         {country_id: 'United States'}, 
         ['name', 'city'],  
-        {limit: 5, offset: 10, order: 'name, desc'});
+        {limit: 5, offset: 10, order: 'name, desc', context: { lang: 'en_US' } });
 console.log(records); // [ { id: 5, name: 'Kool Keith', city: 'Los Angeles' }, ... ]
 
 // Empty domain or other args can be used
