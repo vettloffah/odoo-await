@@ -37,8 +37,6 @@ interface OdooAwaitOptions {
       static password: string;
       static uid: number;
 
-      static isSupported(): boolean;
-
       /**
        *  Config options default to the Odoo defaults if nothing passed in constructor.
        * @param {object} [opts] - configure connection to Odoo
