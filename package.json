@@ -1,6 +1,6 @@
 {
   "name": "odoo-await",
-  "version": "3.3.2",
+  "version": "3.4",
   "description": "Simple Odoo API client using promises.",
   "main": "lib/index.js",
   "directories": {
