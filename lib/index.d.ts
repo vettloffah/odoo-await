@@ -38,13 +38,13 @@ interface OdooAwaitOptions {
       static uid: number;
 
       /**
-       *  Config options default to the Odoo defaults if nothing passed in constructor.
-       * @param {object} [opts] - configure connection to Odoo
-       * @param {string} [opts.baseUrl] -'http://localhost' (note, port number can be provided as part of the URL)
-       * @param {number} [opts.port] - undefined, defaults to protocol default port
-       * @param {string} [opts.db] - 'odoo_db'
-       * @param {string} [opts.username] - 'admin'
-       * @param {string} [opts.password] - 'admin
+       *  Config options default to the Odoo defaults if nothing passed in constructor.\
+       *  {object} opts - options object:
+       *   - baseUrl {string} - 'http://localhost' (note, port number can be provided as part of the URL)
+       *   - port {number?} - undefined, defaults to protocol default port
+       *   - db {string} - 'odoo_db'
+       *   - username {string} - 'admin'
+       *   - password {string} - 'admin
        */
       constructor(opts: OdooAwaitOptions);
 
@@ -111,13 +111,13 @@ interface OdooAwaitOptions {
        * @param {string} model - e.g. 'res.partner
        * @param {array|number} recordId - a record ID integer or an array of ID's e.g. `45` or `[45, 15748, 347]`
        * @param {array} [fields] - optional list of fields to return instead of all fields
-       * @return {Promise<object>}
+       * @return {Promise<object[]>}
        */
       read<T>(
         model: string,
         recordId: number[] | number,
         fields?: string[],
-      ): Promise<T>;
+      ): Promise<T[]>;
 
       /**
        * Update record
