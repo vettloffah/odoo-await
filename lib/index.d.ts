@@ -38,13 +38,13 @@ interface OdooAwaitOptions {
       static uid: number;
 
       /**
-       *  Config options default to the Odoo defaults if nothing passed in constructor.\
-       *  {object} opts - options object:
-       *   - baseUrl {string} - 'http://localhost' (note, port number can be provided as part of the URL)
-       *   - port {number?} - undefined, defaults to protocol default port
-       *   - db {string} - 'odoo_db'
-       *   - username {string} - 'admin'
-       *   - password {string} - 'admin
+       *  Config options default to the Odoo defaults if nothing passed in constructor.
+       * @typedef {object} [opts] - configure connection to Odoo
+       * @param {string} [opts.baseUrl] -'http://localhost' (note, port number can be provided as part of the URL)
+       * @param {number} [opts.port] - undefined, defaults to protocol default port
+       * @param {string} [opts.db] - 'odoo_db'
+       * @param {string} [opts.username] - 'admin'
+       * @param {string} [opts.password] - 'admin
        */
       constructor(opts: OdooAwaitOptions);
 
