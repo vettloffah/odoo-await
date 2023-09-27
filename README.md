@@ -352,6 +352,10 @@ $ ODOO_DB=mydatabase ODOO_USER=myusername ODOO_PW=mypassword ODOO_PORT=8080 ODOO
 
 ## Changelog
 
+#### 3.4.1
+
+1. Fix type declarations
+
 #### 3.4
 
 1. Type declarations from PR [#34](https://github.com/vettloffah/odoo-await/pull/34). thanks to @bebjakub for the contribution.
